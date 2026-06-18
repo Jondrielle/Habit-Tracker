@@ -42,6 +42,21 @@ async def delete_habit(id: int):
 		detail =  "Habit not found"
 	)
 
+@router.patch("/habits/{id}", response_model= Habit)
+async def update_habit(id:int):
+	for habit in habits:
+		if habit.id == id:
+			habit.is_complete = not habit.is_complete
+			if habit.is_complete:
+				habit.streak += 1
+				habit.last_completed = date.today()
+			return habit
 
+	raise HTTPException(
+		status_code = 404,
+		detail = "Habit could not be found"
+	)
+
+	
 
 
