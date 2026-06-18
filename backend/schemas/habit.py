@@ -2,15 +2,15 @@ from pydantic import BaseModel
 from typing import Optional 
 from datetime import date
 
-def CreateHabit(BaseModel):
+class CreateHabit(BaseModel):
 	name: str
-	description: Optional(str) = None
+	description: Optional[str] = None
 
-def ResponseHabit(BaseModel):
+class Habit(BaseModel):
 	id: int
 	name: str
-	description: Optional(str) = None
-	is_Complete: bool
+	description: Optional[str] = None
+	is_complete: bool
 	streak: int
-	last_completed: Optional(date) = None
+	last_completed: Optional[date] = None
 
