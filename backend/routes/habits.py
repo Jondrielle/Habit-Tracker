@@ -9,7 +9,7 @@ habits = []
 habitID = 0
 streak_count = 0
 
-@router.get("/habits")
+@router.get("/")
 async def get_habits():
 	return habits
 
