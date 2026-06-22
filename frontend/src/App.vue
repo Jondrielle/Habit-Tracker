@@ -5,6 +5,7 @@ const habits = ref([])
 
 const name = ref("")
 const description = ref("")
+const id = ref(0)
 
 async function getHabit(){
   try{
@@ -24,6 +25,8 @@ async function getHabit(){
 }
 
 async function addHabit(){
+  if (!name.value.trim()) return
+
   try{
     const response = await fetch(`http://127.0.0.1:8000/habit`,{
       method:"POST",
@@ -43,8 +46,31 @@ async function addHabit(){
 
     const result = await response.json()
 
-    console.log(`${result.name} was added`)
+    habits.value.push(result)
+
+    name.value = ""
+    description.value = ""
   
+  }catch(error){
+    console.error(error.message)
+  }
+}
+
+async function deleteHabit(id){
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/habit/${id}`,{
+      method:"DELETE",
+    })
+
+    if(!response.ok){
+      throw new Error(`Response status: ${response.status}`)
+    }
+
+    const result = await response.json()
+
+    habits.value = habits.value.filter(habit => habit.id !== id)
+
+    console.log("Task was deleted")
   }catch(error){
     console.error(error.message)
   }
@@ -58,6 +84,11 @@ onMounted(()=>{
 <template>
   <h1>----Habits----</h1>
   <div v-for="habit in habits" :key="habit.id">
+    <div>
+      <h3>{{habit.name}}</h3>
+      <h4>{{habit.description}}</h4>
+      <button @click="deleteHabit(habit.id)">Delete</button>
+    </div>
   </div>
 
   <input v-model="name" placeholder="Name"/>
