@@ -6,6 +6,7 @@ const habits = ref([])
 const name = ref("")
 const description = ref("")
 const id = ref(0)
+const isComplete = ref(false)
 
 async function getHabit(){
   try{
@@ -76,6 +77,30 @@ async function deleteHabit(id){
   }
 }
 
+async function updateHabit(id){
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/habits/${id}`,{
+      method:"PATCH"
+    })
+
+    const updatedHabit = await response.json()
+    
+    if(!response.ok){
+      throw new Error (`Response: ${response.status}`)
+    }
+
+    const index = habits.value.findIndex(habit => habit.id === id)
+
+    if(index !== -1){
+      habits.value[index] = updatedHabit
+    }
+
+    
+  }catch(error){
+    console.error(error.message)
+  }
+}
+
 onMounted(()=>{
   getHabit()
 })
@@ -87,7 +112,12 @@ onMounted(()=>{
     <div>
       <h3>{{habit.name}}</h3>
       <h4>{{habit.description}}</h4>
+      <h5>Complete? {{habit.is_complete}}</h5>
       <button @click="deleteHabit(habit.id)">Delete</button>
+    </div>
+    <div>
+      <button @click="updateHabit(habit.id)">Update Habit
+      </button>
     </div>
   </div>
 
