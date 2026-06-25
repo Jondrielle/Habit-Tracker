@@ -1,12 +1,15 @@
 <script setup>
 import {ref,onMounted} from 'vue'
 
+
 const habits = ref([])
 
 const name = ref("")
 const description = ref("")
 const id = ref(0)
 const isComplete = ref(false)
+const streak = ref(0)
+const lastCompletion = ref("")
 
 async function getHabit(){
   try{
@@ -84,7 +87,7 @@ async function updateHabit(id){
     })
 
     const updatedHabit = await response.json()
-    
+
     if(!response.ok){
       throw new Error (`Response: ${response.status}`)
     }
@@ -112,6 +115,8 @@ onMounted(()=>{
     <div>
       <h3>{{habit.name}}</h3>
       <h4>{{habit.description}}</h4>
+      <h4>Streak: {{habit.streak}}</h4>
+      <h4>Last Completed Date: {{habit.last_completed}}</h4>
       <h5>Complete? {{habit.is_complete}}</h5>
       <button @click="deleteHabit(habit.id)">Delete</button>
     </div>

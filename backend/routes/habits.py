@@ -47,7 +47,7 @@ async def update_habit(id:int):
 	for habit in habits:
 		if habit.id == id:
 			habit.is_complete = not habit.is_complete
-			if habit.is_complete:
+			if habit.last_completed != date.today():
 				habit.streak += 1
 				habit.last_completed = date.today()
 			return habit
