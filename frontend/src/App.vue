@@ -116,7 +116,6 @@ onMounted(()=>{
   <div v-for="habit in habits" :key="habit.id">
     <div>
       <HabitItem :habit="habit"/>
-      <h4>Last Completed Date: {{habit.last_completed}}</h4>
       <button @click="deleteHabit(habit.id)">Delete</button>
     </div>
     <div>
