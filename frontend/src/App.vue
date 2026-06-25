@@ -1,6 +1,8 @@
 <script setup>
 import {ref,onMounted} from 'vue'
 
+import HabitItem from "./components/HabitItem.vue"
+
 
 const habits = ref([])
 
@@ -113,11 +115,8 @@ onMounted(()=>{
   <h1>----Habits----</h1>
   <div v-for="habit in habits" :key="habit.id">
     <div>
-      <h3>{{habit.name}}</h3>
-      <h4>{{habit.description}}</h4>
-      <h4>Streak: {{habit.streak}}</h4>
+      <HabitItem :habit="habit"/>
       <h4>Last Completed Date: {{habit.last_completed}}</h4>
-      <h5>Complete? {{habit.is_complete}}</h5>
       <button @click="deleteHabit(habit.id)">Delete</button>
     </div>
     <div>
