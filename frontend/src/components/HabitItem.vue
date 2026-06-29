@@ -2,6 +2,13 @@
 const props = defineProps({
 	habit: Object
 })
+
+const emit = defineEmits(['delete'])
+
+function deleteHabit(){
+	emit('delete',props.habit.id)
+	console.log("Deleting habit")
+}
 </script>
 
 <template>
@@ -14,7 +21,7 @@ const props = defineProps({
 	<h2>Last Completed: {{habit.last_completed}}</h2>
 	<h2>Is Complete: {{habit.is_complete}}</h2>
 	<div class="buttons">
-		<button>Delete</button>
+		<button @click="deleteHabit">Delete Habit</button>
 		<button>Update</button>
 	</div>
 </div>

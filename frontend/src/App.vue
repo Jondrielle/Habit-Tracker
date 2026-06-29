@@ -62,7 +62,7 @@ async function addHabit(){
   }
 }
 
-async function deleteHabit(id){
+async function handleDelete(id){
   try{
     const response = await fetch(`http://127.0.0.1:8000/habit/${id}`,{
       method:"DELETE",
@@ -115,8 +115,9 @@ onMounted(()=>{
   <h1>----Habits----</h1>
   <div v-for="habit in habits" :key="habit.id">
     <div>
-      <HabitItem :habit="habit"/>
-      <button @click="deleteHabit(habit.id)">Delete</button>
+      <HabitItem :habit="habit"
+      @delete="handleDelete"
+      />
     </div>
     <div>
       <button @click="updateHabit(habit.id)">Update Habit
