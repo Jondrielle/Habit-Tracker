@@ -34,7 +34,7 @@ async def create_habit(habit: CreateHabit):
 async def delete_habit(id: int):
 	for habit in habits:
 		if habit.id == id:
-			habits.remove(habits[id])
+			habits.remove(habit)
 		return {"Message:", "Habit Deleted"}
 
 	raise HTTPException(

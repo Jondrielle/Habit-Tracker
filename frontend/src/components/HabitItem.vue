@@ -3,11 +3,16 @@ const props = defineProps({
 	habit: Object
 })
 
-const emit = defineEmits(['delete'])
+const emit = defineEmits(['delete','update'])
 
 function deleteHabit(){
 	emit('delete',props.habit.id)
 	console.log("Deleting habit")
+}
+
+function updateHabit(){
+	emit('update', props.habit.id)
+	console.log("Updating habit")
 }
 </script>
 
@@ -22,7 +27,7 @@ function deleteHabit(){
 	<h2>Is Complete: {{habit.is_complete}}</h2>
 	<div class="buttons">
 		<button @click="deleteHabit">Delete Habit</button>
-		<button>Update</button>
+		<button @click="updateHabit">Update Habit</button>
 	</div>
 </div>
 </template>

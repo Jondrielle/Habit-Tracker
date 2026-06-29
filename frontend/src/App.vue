@@ -82,7 +82,7 @@ async function handleDelete(id){
   }
 }
 
-async function updateHabit(id){
+async function handleUpdate(id){
   try{
     const response = await fetch(`http://127.0.0.1:8000/habits/${id}`,{
       method:"PATCH"
@@ -117,11 +117,8 @@ onMounted(()=>{
     <div>
       <HabitItem :habit="habit"
       @delete="handleDelete"
+      @update="handleUpdate"
       />
-    </div>
-    <div>
-      <button @click="updateHabit(habit.id)">Update Habit
-      </button>
     </div>
   </div>
 
