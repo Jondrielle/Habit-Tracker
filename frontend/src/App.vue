@@ -3,6 +3,8 @@ import {ref,onMounted} from 'vue'
 
 import HabitItem from "./components/HabitItem.vue"
 
+import HabitForm from "./components/HabitForm.vue"
+
 
 const habits = ref([])
 
@@ -12,6 +14,8 @@ const id = ref(0)
 const isComplete = ref(false)
 const streak = ref(0)
 const lastCompletion = ref("")
+
+const isEditing = (true)
 
 async function getHabit(){
   try{
@@ -138,6 +142,8 @@ onMounted(()=>{
   <button @click="addHabit">
     Add Habit
   </button>
+  <HabitForm
+    :editMode ="isEditing"/>
 </template>
 
 <style scoped></style>
