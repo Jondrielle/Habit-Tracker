@@ -1,5 +1,5 @@
 from fastapi import FastAPI,APIRouter,HTTPException
-from schemas.habit import CreateHabit, Habit
+from schemas.habit import CreateHabit, Habit, UpdateHabit
 from datetime import date 
 
 router = APIRouter()
@@ -43,14 +43,21 @@ async def delete_habit(id: int):
 	)
 
 @router.patch("/habits/{id}", response_model= Habit)
-async def update_habit(id:int):
-	for habit in habits:
-		if habit.id == id:
-			habit.is_complete = not habit.is_complete
-			if habit.last_completed != date.today():
-				habit.streak += 1
-				habit.last_completed = date.today()
-			return habit
+async def update_habit(updated:UpdateHabit,id:int):
+	for selected in habits:
+		if selected.id == id:
+			if updated.name is not None:
+				selected.name = updated.name
+			
+			if updated.description is not None:
+				selected.description = updated.description
+
+			if updated.is_complete is not None:
+				selected.is_complete = updated.is_complete
+				if updated.is_complete and selected.last_completed != date.today():
+					selected.streak += 1
+					selected.last_completed = date.today()
+			return selected
 
 	raise HTTPException(
 		status_code = 404,

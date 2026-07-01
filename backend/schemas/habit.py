@@ -14,3 +14,7 @@ class Habit(BaseModel):
 	streak: int
 	last_completed: Optional[date] = None
 
+class UpdateHabit(BaseModel):
+	name: Optional[str] = None
+	description: Optional[str] = None
+	is_complete: Optional[bool] = None
