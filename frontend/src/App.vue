@@ -85,9 +85,19 @@ async function handleDelete(id){
 async function handleUpdate(id){
   try{
     const response = await fetch(`http://127.0.0.1:8000/habits/${id}`,{
-      method:"PATCH"
+      method:"PATCH",
+      headers:{
+        "Content-Type":
+          "application/json"
+      },
+      body: JSON.stringify({
+        name: name.value,
+        description: description.value,
+      })
     })
 
+    name.value = ""
+    description.value = ""
     const updatedHabit = await response.json()
 
     if(!response.ok){
