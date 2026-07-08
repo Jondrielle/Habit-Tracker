@@ -1,24 +1,34 @@
 <script setup>
-	const props = defineProps({
-		editMode: Boolean
-	})
+import { ref } from "vue"
+
+const props = defineProps({
+  editMode: Boolean,
+  habit: Object
+})
+
+const emit = defineEmits(["save"])
+
+const form = ref({
+  name: props.habit?.name || "",
+  description: props.habit?.description || ""
+})
+
+function submit() {
+  emit("save", form.value)
+}
 </script>
 
 <template>
-	<div>
-		<div v-if="editMode">
-			<h2>Edit Habit Form</h2>
-			<button >
-		    Edit Habit
-		  </button>
-		</div>
-		<div v-else>
-			<h2>Add Habit Form</h2>
-			<input v-model="name" placeholder="Name"/>
-  			<input v-model="description" placeholder="Description"/>
-			<button>
-				Add Habit
-			</button>
-		</div>
-	  </div>
+  <form @submit.prevent="submit">
+    <input v-model="form.name" placeholder="Name" />
+
+    <input 
+      v-model="form.description"
+      placeholder="Description"
+    />
+
+    <button type="submit">
+      {{ editMode ? "Update Habit" : "Add Habit" }}
+    </button>
+  </form>
 </template>

@@ -15,7 +15,8 @@ const isComplete = ref(false)
 const streak = ref(0)
 const lastCompletion = ref("")
 
-const isEditing = (true)
+const isEditing = ref(false)
+const selectedHabit = ref(null)
 
 async function getHabit(){
   try{
@@ -86,18 +87,15 @@ async function handleDelete(id){
   }
 }
 
-async function handleUpdate(id){
+async function handleUpdate(habit){
   try{
-    const response = await fetch(`http://127.0.0.1:8000/habits/${id}`,{
+    const response = await fetch(`http://127.0.0.1:8000/habits/${habit.id}`,{
       method:"PATCH",
       headers:{
         "Content-Type":
           "application/json"
       },
-      body: JSON.stringify({
-        name: name.value,
-        description: description.value,
-      })
+      body: JSON.stringify(habit)
     })
 
     name.value = ""
@@ -114,10 +112,18 @@ async function handleUpdate(id){
       habits.value[index] = updatedHabit
     }
 
+    isEditing.value = false
+    selectedHabit.value = null
+
     
   }catch(error){
     console.error(error.message)
   }
+}
+
+function startEdit(habit){
+  selectedHabit.value = {...habit}
+  isEditing.value = true
 }
 
 onMounted(()=>{
@@ -131,19 +137,16 @@ onMounted(()=>{
     <div>
       <HabitItem :habit="habit"
       @delete="handleDelete"
-      @update="handleUpdate"
+      @edit="startEdit(habit)"
       />
     </div>
   </div>
 
-  <input v-model="name" placeholder="Name"/>
-  <input v-model="description" placeholder="Description"/>
-
-  <button @click="addHabit">
-    Add Habit
-  </button>
   <HabitForm
-    :editMode ="isEditing"/>
+    v-if="isEditing"
+    :habit="selectedHabit"
+    :editMode ="isEditing"
+    @save="handleUpdate"/>
 </template>
 
 <style scoped></style>
