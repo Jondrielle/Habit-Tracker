@@ -8,12 +8,6 @@ import HabitForm from "./components/HabitForm.vue"
 
 const habits = ref([])
 
-const name = ref("")
-const description = ref("")
-const id = ref(0)
-const isComplete = ref(false)
-const streak = ref(0)
-const lastCompletion = ref("")
 
 const isEditing = ref(false)
 const selectedHabit = ref(null)
@@ -35,21 +29,18 @@ async function getHabit(){
   }
 }
 
-async function addHabit(){
-  if (!name.value.trim()) return
-
+async function addHabit(habit){
   try{
-    const response = await fetch(`http://127.0.0.1:8000/habit`,{
-      method:"POST",
+    const response = await fetch("http://127.0.0.1:8000/habit", {
+      method: "POST",
       headers:{
-        "Content-Type":
-        "application/json"
+        "Content-Type":"application/json"
       },
       body: JSON.stringify({
-        name:name.value,
-        description:description.value
+        name: habit.name,
+        description: habit.description
       })
-    });
+    })
 
     if(!response.ok){
       throw new Error(`Response status: ${response.status}`)
@@ -59,9 +50,6 @@ async function addHabit(){
 
     habits.value.push(result)
 
-    name.value = ""
-    description.value = ""
-  
   }catch(error){
     console.error(error.message)
   }
@@ -81,6 +69,11 @@ async function handleDelete(id){
 
     habits.value = habits.value.filter(habit => habit.id !== id)
 
+    if(selectedHabit.value?.id === id){
+      selectedHabit.value = null
+      isEditing.value = false
+    }
+    
     console.log("Task was deleted")
   }catch(error){
     console.error(error.message)
@@ -92,21 +85,19 @@ async function handleUpdate(habit){
     const response = await fetch(`http://127.0.0.1:8000/habits/${habit.id}`,{
       method:"PATCH",
       headers:{
-        "Content-Type":
-          "application/json"
+        "Content-Type":"application/json"
       },
       body: JSON.stringify(habit)
     })
 
-    name.value = ""
-    description.value = ""
-    const updatedHabit = await response.json()
-
+    console.log(habit)
     if(!response.ok){
-      throw new Error (`Response: ${response.status}`)
+      throw new Error(`Response: ${response.status}`)
     }
 
-    const index = habits.value.findIndex(habit => habit.id === id)
+    const updatedHabit = await response.json()
+
+    const index = habits.value.findIndex(h => h.id === habit.id)
 
     if(index !== -1){
       habits.value[index] = updatedHabit
@@ -115,7 +106,6 @@ async function handleUpdate(habit){
     isEditing.value = false
     selectedHabit.value = null
 
-    
   }catch(error){
     console.error(error.message)
   }
@@ -124,6 +114,11 @@ async function handleUpdate(habit){
 function startEdit(habit){
   selectedHabit.value = {...habit}
   isEditing.value = true
+}
+
+function cancelForm(){
+  selectedHabit.value = null
+  isEditing.value = false
 }
 
 onMounted(()=>{
@@ -137,16 +132,18 @@ onMounted(()=>{
     <div>
       <HabitItem :habit="habit"
       @delete="handleDelete"
-      @edit="startEdit(habit)"
+      @edit="startEdit"
       />
     </div>
   </div>
 
   <HabitForm
-    v-if="isEditing"
+    :key="selectedHabit?.id || 'new'"
     :habit="selectedHabit"
     :editMode ="isEditing"
-    @save="handleUpdate"/>
+    @save="handleUpdate" @create="addHabit"
+    @cancel="cancelForm"
+  />
 </template>
 
 <style scoped></style>

@@ -43,7 +43,7 @@ async def delete_habit(id: int):
 	)
 
 @router.patch("/habits/{id}", response_model= Habit)
-async def update_habit(updated:UpdateHabit,id:int):
+async def update_habit(id:int,updated:UpdateHabit):
 	for selected in habits:
 		if selected.id == id:
 			if updated.name is not None:
