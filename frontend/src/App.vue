@@ -73,7 +73,7 @@ async function handleDelete(id){
       selectedHabit.value = null
       isEditing.value = false
     }
-    
+
     console.log("Task was deleted")
   }catch(error){
     console.error(error.message)
@@ -87,7 +87,10 @@ async function handleUpdate(habit){
       headers:{
         "Content-Type":"application/json"
       },
-      body: JSON.stringify(habit)
+        body: JSON.stringify({
+          name: habit.name,
+          description: habit.description
+        })
     })
 
     console.log(habit)
@@ -111,6 +114,35 @@ async function handleUpdate(habit){
   }
 }
 
+async function handleComplete(id){
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/habits/${id}`, {
+      method:"PATCH",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        is_complete: true
+      })
+    })
+
+    if(!response.ok){
+      throw new Error(`Response status: ${response.status}`)
+    }
+
+    const updatedHabit = await response.json()
+
+    const index = habits.value.findIndex(h => h.id === id)
+
+    if(index !== -1){
+      habits.value[index] = updatedHabit
+    }
+
+  }catch(error){
+    console.error(error.message)
+  }
+}
+
 function startEdit(habit){
   selectedHabit.value = {...habit}
   isEditing.value = true
@@ -127,14 +159,15 @@ onMounted(()=>{
 </script>
 
 <template>
-  <h1>----Habits----</h1>
-  <div v-for="habit in habits" :key="habit.id">
-    <div>
+  <div class="titleBox">
+    <h1 class="header">Habits</h1>
+  </div>
+  <div class="habit-grid" v-for="habit in habits" :key="habit.id">
       <HabitItem :habit="habit"
       @delete="handleDelete"
       @edit="startEdit"
+      @complete="handleComplete"
       />
-    </div>
   </div>
 
   <HabitForm
@@ -146,4 +179,40 @@ onMounted(()=>{
   />
 </template>
 
-<style scoped></style>
+<style >
+  body {
+    margin: 0;
+  }
+  .titleBox {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #ffd6e7, #ffc0cb);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(255, 192, 203, 0.4);
+  }
+
+  .header{
+    margin: 0;
+    text-align: center;
+  }
+
+  .habit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 900px){
+    .habit-grid{
+      grid-template-columns:repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px){
+    .habit-grid{
+      grid-template-columns:1fr;
+    }
+  }
+
+
+</style>

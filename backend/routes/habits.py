@@ -23,7 +23,7 @@ async def create_habit(habit: CreateHabit):
 		description = habit.description,
 		is_complete = False,
 		streak = 0,
-		last_completed = date.today()
+		last_completed = None
 	)
 
 	habits.append(new_habit)
@@ -54,6 +54,7 @@ async def update_habit(id:int,updated:UpdateHabit):
 
 			if updated.is_complete is not None:
 				selected.is_complete = updated.is_complete
+				
 				if updated.is_complete and selected.last_completed != date.today():
 					selected.streak += 1
 					selected.last_completed = date.today()
