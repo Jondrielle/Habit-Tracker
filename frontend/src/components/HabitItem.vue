@@ -29,8 +29,8 @@ function completeHabit(){
 	<h2 class="description">{{habit.description}}</h2>
 	<div class="stats">
 		<span class="streak">🔥  {{habit.streak}} day streak</span>
-		<span class="stats">📅 {{habit.last_completed}}</span>
-		<span class="stats">Status: {{habit.is_complete ? " ✅ Complete" : "⬜Incomplete"}}</span>
+		<span class="stats"> 📅 {{habit.last_completed? habit.last_completed: "Never"}}</span>
+		<span class="stats">Status: {{habit.is_complete ? " ✅ Complete" : "⬜ Incomplete"}}</span>
 	</div>
 	<div class="buttons">
 		<button @click="deleteHabit">Delete Habit</button>
@@ -55,7 +55,7 @@ function completeHabit(){
 	  border-radius: 8px;
 	  padding: 12px;
 	  position:relative;
-	  min-height:220px;
+	  min-height:250px;
 	}
 
 	.title{
@@ -66,14 +66,16 @@ function completeHabit(){
 	}
 
 	.buttons{
+		margin-top:8px;
 		display: flex;
 		justify-content: flex-end;
 		gap:8px;
 	}
 
 	.stats{
+	  margin-top: auto;
 	  display:flex;
-	  flex-wrap:wrap;
+	  flex-direction:column;
 	  gap:12px;
 	  font-size:14px;
 	  padding:5px;
