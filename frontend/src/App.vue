@@ -162,12 +162,15 @@ onMounted(()=>{
   <div class="titleBox">
     <h1 class="header">Habits</h1>
   </div>
-  <div class="habit-grid" v-for="habit in habits" :key="habit.id">
-      <HabitItem :habit="habit"
+  <div class="habit-grid"> 
+    <HabitItem 
+      v-for="habit in habits"
+      :key="habit.id"
+      :habit="habit"
       @delete="handleDelete"
       @edit="startEdit"
       @complete="handleComplete"
-      />
+    />
   </div>
 
   <HabitForm
@@ -197,9 +200,12 @@ onMounted(()=>{
   }
 
   .habit-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
   @media (max-width: 900px){

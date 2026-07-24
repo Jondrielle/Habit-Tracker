@@ -46,16 +46,16 @@ function completeHabit(){
 
 <style scoped>
 	.card {
-	  width: 100%;
- 	  max-width: 320px;
+	  width: 320px;
 	  display: flex;
 	  flex-direction: column;
 	  gap: 8px;
 	  border-bottom: 2px dotted pink;
+  	  box-shadow: 0 6px 8px -6px rgba(0,0,0,0.2);
 	  border-radius: 8px;
 	  padding: 12px;
 	  position:relative;
-	  height:100%;
+	  min-height:220px;
 	}
 
 	.title{
