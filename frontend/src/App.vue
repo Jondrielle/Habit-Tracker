@@ -31,7 +31,7 @@ async function getHabit(){
 
 async function addHabit(habit){
   try{
-    const response = await fetch("https://habit-tracker-x6nr.onrender.com", {
+    const response = await fetch("https://habit-tracker-x6nr.onrender.com/habit", {
       method: "POST",
       headers:{
         "Content-Type":"application/json"
