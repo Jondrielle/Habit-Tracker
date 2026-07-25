@@ -160,7 +160,7 @@ onMounted(()=>{
 
 <template>
   <div class="titleBox">
-    <h1 class="header">Habits</h1>
+    <h1 class="header">Habit Tracker</h1>
   </div>
   <div class="habit-grid"> 
     <HabitItem 
