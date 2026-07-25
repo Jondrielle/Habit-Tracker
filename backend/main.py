@@ -6,7 +6,7 @@ app = FastAPI()
 
 origins =[
 	"http://localhost:5173",
-	"https://grindnglow.netlify.app/"
+	"https://grindnglow.netlify.app"
 
 ]
 
