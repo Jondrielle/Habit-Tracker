@@ -14,7 +14,7 @@ const selectedHabit = ref(null)
 
 async function getHabit(){
   try{
-    const response = await fetch("http://127.0.0.1:8000/");
+    const response = await fetch("https://habit-tracker-x6nr.onrender.com");
 
     if (!response.ok){
       throw new Error(`Response status: ${response.status}`);
@@ -31,7 +31,7 @@ async function getHabit(){
 
 async function addHabit(habit){
   try{
-    const response = await fetch("http://127.0.0.1:8000/habit", {
+    const response = await fetch("https://habit-tracker-x6nr.onrender.com", {
       method: "POST",
       headers:{
         "Content-Type":"application/json"
@@ -57,7 +57,7 @@ async function addHabit(habit){
 
 async function handleDelete(id){
   try{
-    const response = await fetch(`http://127.0.0.1:8000/habit/${id}`,{
+    const response = await fetch(`https://habit-tracker-x6nr.onrender.com/habit/${id}`,{
       method:"DELETE",
     })
 
@@ -82,7 +82,7 @@ async function handleDelete(id){
 
 async function handleUpdate(habit){
   try{
-    const response = await fetch(`http://127.0.0.1:8000/habits/${habit.id}`,{
+    const response = await fetch(`https://habit-tracker-x6nr.onrender.com/habits/${habit.id}`,{
       method:"PATCH",
       headers:{
         "Content-Type":"application/json"
@@ -116,7 +116,7 @@ async function handleUpdate(habit){
 
 async function handleComplete(id){
   try{
-    const response = await fetch(`http://127.0.0.1:8000/habits/${id}`, {
+    const response = await fetch(`https://habit-tracker-x6nr.onrender.com/habits/${id}`, {
       method:"PATCH",
       headers:{
         "Content-Type":"application/json"

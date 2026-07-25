@@ -6,7 +6,8 @@ app = FastAPI()
 
 origins =[
 	"http://localhost:5173",
-	"https://habit-tracker-x6nr.onrender.com"
+	"https://grindnglow.netlify.app/"
+
 ]
 
 app.add_middleware(
