@@ -114,7 +114,23 @@ Building this project helped me practice:
 * Responsive UI design
 * Debugging full-stack applications
 
-## Screenshots
+## Known Limitations
+
+This project is a learning exercise focused on understanding CRUD operations using Vue.js and FastAPI. The following limitations are known and intentional while I focus on learning the fundamentals.
+
+- **In-memory storage:** Habits are stored in a Python list and are lost when the backend restarts.
+- **No authentication:** The application does not support user accounts or separate habit lists.
+- **Basic error handling:** API errors are primarily logged to the console rather than displayed in the UI.
+- **Limited validation:** Form validation and user feedback can be improved.
+- **Basic functionality:** The application focuses on creating, viewing, editing, deleting, and completing habits without advanced tracking features.
+
+### Future Improvements
+
+Potential improvements include persistent database storage, authentication, better error handling, automated testing, and additional habit-tracking features.
+
+These improvements are intentionally deferred to keep the project manageable and maintain focus on learning Vue.js, FastAPI, REST APIs, and CRUD fundamentals.
+
+The goal is to build a solid understanding of the core concepts before introducing additional complexity.
 
 
 
