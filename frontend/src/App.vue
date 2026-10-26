@@ -161,6 +161,7 @@ onMounted(()=>{
 <template>
   <div class="titleBox">
     <h1 class="header">Habit Tracker</h1>
+    <p>Build better routines day by day</p>
   </div>
   <div class="habit-grid"> 
     <HabitItem 
@@ -171,6 +172,8 @@ onMounted(()=>{
       @edit="startEdit"
       @complete="handleComplete"
     />
+    Your habits will appear here
+    Add your first habit to get started.
   </div>
 
   <HabitForm

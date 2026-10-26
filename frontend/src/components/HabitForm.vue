@@ -36,19 +36,23 @@ function cancel() {
 
 <template>
   <div class="container">
+    <h2>Create a new habit</h2>
+    <p>Start small. Stay consistent</p>
     <form class="form" @submit.prevent="submit">
+      <label>Habit name</label>
       <input
         v-model="form.name"
-        placeholder="Habit name"
+        placeholder="e.g. Read for 15 minutes"
       />
 
-      <input
+      <label>Description (optional)</label>
+      <textarea
         v-model="form.description"
-        placeholder="Description"
+        placeholder="What do you want to achieve?"
       />
 
       <button type="submit">
-        {{ editMode ? "Update Habit" : "Add Habit" }}
+        {{ editMode ? "Update Habit" : "+ Add Habit" }}
       </button>
 
       <button type="button" @click="cancel">
