@@ -11,6 +11,7 @@ const habits = ref([])
 
 const isEditing = ref(false)
 const selectedHabit = ref(null)
+const showForm = ref(false)
 
 async function getHabit(){
   try{
@@ -146,11 +147,17 @@ async function handleComplete(id){
 function startEdit(habit){
   selectedHabit.value = {...habit}
   isEditing.value = true
+  showForm.value = true
 }
 
 function cancelForm(){
   selectedHabit.value = null
   isEditing.value = false
+  showForm.value = false
+}
+
+function openForm(){
+  showForm.value = true;
 }
 
 onMounted(()=>{
@@ -161,16 +168,26 @@ onMounted(()=>{
 <template>
   <div class="titleBox">
     <h1 class="header">Habit Tracker</h1>
-    <p>Build better routines day by day</p>
+    <p class="subheader">Build better routines day by day</p>
+  </div>
+
+  <div class="containerForm-btt">
+    <button
+      v-if="!showForm"  
+      @click="openForm">Create new habit
+    </button>
   </div>
 
   <HabitForm
+    v-if="showForm"
     :key="selectedHabit?.id || 'new'"
     :habit="selectedHabit"
     :editMode ="isEditing"
     @save="handleUpdate" @create="addHabit"
     @cancel="cancelForm"
   />
+
+  <hr/>
 
   <div class="habit-grid"> 
     <HabitItem 
@@ -181,7 +198,6 @@ onMounted(()=>{
       @edit="startEdit"
       @complete="handleComplete"
     />
-
 
     <p  v-if="habits.length === 0">Your habits will appear here. Add your first habit to get started.</p>
   </div>
@@ -200,6 +216,12 @@ onMounted(()=>{
   .header{
     margin: 0;
     text-align: center;
+  }
+
+  .subheader{
+    margin: 0;
+    text-align: center;
+    color:gray;
   }
 
   .habit-grid {
@@ -221,6 +243,27 @@ onMounted(()=>{
     .habit-grid{
       grid-template-columns:1fr;
     }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 24px 0;
+}
+  
+  .containerForm-btt{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center; 
+    height:35px;
+  }
+
+  .containerForm-btt > button{
+    background-color:#FFC0CB;
+    width:125px;
+    height:35px;
+    border-radius:10px;
+    align-items:end;
   }
 
 

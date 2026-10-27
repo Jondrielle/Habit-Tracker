@@ -53,13 +53,13 @@ function cancel() {
 
       <div class="button-row">
 
+        <button type="submit">
+          {{ editMode ? "Update Habit" : "+ Add Habit" }}
+        </button>
+
         <button type="button" @click="cancel">
           Cancel
         </button>
-
-        <button type="submit">
-          {{ editMode ? "Update Habit" : "+ Add Habit" }}
-          </button>
 
       </div>
     </form>
@@ -94,11 +94,12 @@ function cancel() {
   width:125px;
   height:30px;
   border-radius:10px;
-  background-color:pink;
+  background-color:#FFC0CB;
 }
 
 .button-row > button:hover{
-  background-color:dark-pink;
+  background-color:#F9629F;
+  opacity: 0.88;
 }
 
 
