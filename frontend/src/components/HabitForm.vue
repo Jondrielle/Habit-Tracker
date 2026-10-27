@@ -51,13 +51,17 @@ function cancel() {
         placeholder="What do you want to achieve?"
       />
 
-      <button type="submit">
-        {{ editMode ? "Update Habit" : "+ Add Habit" }}
-      </button>
+      <div class="button-row">
 
-      <button type="button" @click="cancel">
-        Cancel
-      </button>
+        <button type="button" @click="cancel">
+          Cancel
+        </button>
+
+        <button type="submit">
+          {{ editMode ? "Update Habit" : "+ Add Habit" }}
+          </button>
+
+      </div>
     </form>
   </div>
 </template>
@@ -78,5 +82,24 @@ function cancel() {
   background-color: #fff0f5;
   margin-top:45px;
 }
+
+.button-row{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:10px;
+}
+
+.button-row > button{
+  width:125px;
+  height:30px;
+  border-radius:10px;
+  background-color:pink;
+}
+
+.button-row > button:hover{
+  background-color:dark-pink;
+}
+
 
 </style>

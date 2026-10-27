@@ -163,6 +163,15 @@ onMounted(()=>{
     <h1 class="header">Habit Tracker</h1>
     <p>Build better routines day by day</p>
   </div>
+
+  <HabitForm
+    :key="selectedHabit?.id || 'new'"
+    :habit="selectedHabit"
+    :editMode ="isEditing"
+    @save="handleUpdate" @create="addHabit"
+    @cancel="cancelForm"
+  />
+
   <div class="habit-grid"> 
     <HabitItem 
       v-for="habit in habits"
@@ -172,17 +181,10 @@ onMounted(()=>{
       @edit="startEdit"
       @complete="handleComplete"
     />
-    Your habits will appear here
-    Add your first habit to get started.
-  </div>
 
-  <HabitForm
-    :key="selectedHabit?.id || 'new'"
-    :habit="selectedHabit"
-    :editMode ="isEditing"
-    @save="handleUpdate" @create="addHabit"
-    @cancel="cancelForm"
-  />
+
+    <p  v-if="habits.length === 0">Your habits will appear here. Add your first habit to get started.</p>
+  </div>
 </template>
 
 <style >
@@ -192,9 +194,7 @@ onMounted(()=>{
   .titleBox {
     width: 100%;
     box-sizing: border-box;
-    background: linear-gradient(135deg, #ffd6e7, #ffc0cb);
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(255, 192, 203, 0.4);
   }
 
   .header{
