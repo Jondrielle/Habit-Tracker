@@ -266,5 +266,4 @@ onMounted(()=>{
     align-items:end;
   }
 
-
 </style>
