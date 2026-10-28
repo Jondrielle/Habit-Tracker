@@ -1,8 +1,8 @@
 from datetime import date
 
 from fastapi import APIRouter, HTTPException
-from schemas.habit import CreateHabit, Habit, UpdateHabit
-from utils.streaks import calculate_streak
+from backend.schemas.habit import CreateHabit, Habit, UpdateHabit
+from backend.utils.streaks import calculate_streak
 
 router = APIRouter()
 

@@ -1,6 +1,5 @@
 from datetime import date, timedelta
 
-
 def calculate_streak(
     streak: int,
     last_completed: date | None,
