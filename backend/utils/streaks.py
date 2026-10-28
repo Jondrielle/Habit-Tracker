@@ -1,9 +1,9 @@
 from datetime import date, timedelta
-from typing import Optional
+
 
 def calculate_streak(
     streak: int,
-    last_completed: Optional[date],
+    last_completed: date | None,
     today: date
 ) -> int:
     if last_completed == today:
