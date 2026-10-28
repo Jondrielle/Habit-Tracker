@@ -19,6 +19,9 @@ jobs:
 
       - name: Install Ruff
         run: python -m pip install ruff
+
+      - name: Install pytest
+        run: python -m pip install pytest
         
       - name: Check code quality 
         run: python -m ruff check .
