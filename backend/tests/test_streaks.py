@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 
-from utils.streaks import calculate_streak
+from backend.utils.streaks import calculate_streak
 
 
 def test_first_completion():
