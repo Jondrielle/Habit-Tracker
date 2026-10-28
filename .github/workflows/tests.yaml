@@ -6,7 +6,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Print a message
-        run: echo "Hello, GitHub Actions!"
+      - name: Checkout out repo
+      - uses: actions/checkout@v4
+      
+      - name: Setup python 
+      - uses: actions/setup-python@v5
+        with:
+            python-verison: "3.13.16"
+      
+      - name: Install dependencies 
+        run: python3 -m pip install -r requirements.txt
 
+      - name: Check code quality 
+        run: ruff check .
+      
+      - name: Run tests
+        run:  python3 -m pytest
 
