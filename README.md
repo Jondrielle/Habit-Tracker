@@ -1,4 +1,4 @@
-[![Tests](https://github.com/Jondrielle/Habit-Tracker/actions/workflows/tests.yaml/badge.svg)](https://github.com/Jondrielle/Habit-Tracker/actions/workflows/tests.yaml)# Habit Tracker
+[![Tests](https://github.com/Jondrielle/Habit-Tracker/actions/workflows/tests.yaml/badge.svg)](https://github.com/Jondrielle/Habit-Tracker/actions/workflows/tests.yaml)
 
 # Habit Tracker
 
