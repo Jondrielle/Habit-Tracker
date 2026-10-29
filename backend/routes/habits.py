@@ -38,7 +38,7 @@ async def delete_habit(id: int):
 	for habit in habits:
 		if habit.id == id:
 			habits.remove(habit)
-			return {"Message:", "Habit Deleted"}
+			return {"Message": "Habit Deleted"}
 
 	raise HTTPException(
 		status_code = 404,

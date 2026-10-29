@@ -66,6 +66,11 @@ def test_create_habit_last_completed_date_default_value():
 	assert response.status_code == 200
 	assert response.json()["last_completed"] is None
 
+
+def test_delete_a_nonexistent_habit():
+	response = client.delete("/habit/1000")
+	assert response.status_code == 404
+
 #def test_delete_habit():
 
 #def test_update_habit():
