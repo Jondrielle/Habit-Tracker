@@ -66,6 +66,7 @@ def test_create_habit_last_completed_date_default_value():
 	assert response.status_code == 200
 	assert response.json()["last_completed"] is None
 
+
 def test_delete_a_nonexistent_habit():
 	response = client.delete("/habit/1000")
 	assert response.status_code == 404
@@ -84,6 +85,59 @@ def test_delete_an_existent_habit():
 	assert response.json()["Message"] == "Habit Deleted"
 
 	
-#def test_delete_habit():
+def test_update_habit_description_only():
+	create_response = client.post("/habit",
+		json={"name": "Read", "description": "Daily reading"}
+	)
+	assert create_response.status_code == 200
 
-#def test_update_habit():
+	habit_id = create_response.json()["id"]
+
+	response = client.patch(f"/habits/{habit_id}",
+		json={
+			"description":"Read 30 minutes a day"
+		})
+
+	assert response.status_code == 200
+	assert response.json()["description"] == "Read 30 minutes a day"
+	assert response.json()["name"] == "Read"
+
+def test_update_habit_name_only():
+	create_response = client.post("/habit",
+		json={"name": "Read", "description": "Daily reading"}
+	)
+	assert create_response.status_code == 200
+
+	habit_id = create_response.json()["id"]
+
+	response = client.patch(f"/habits/{habit_id}",
+		json={
+			"name":"Read Bible"
+		})
+
+	assert response.status_code == 200
+	assert response.json()["description"] == "Daily reading"
+	assert response.json()["name"] == "Read Bible"
+
+def test_update_habit_no_update():
+	create_response = client.post("/habit",
+		json={"name": "Read", "description": "Daily reading"}
+	)
+	assert create_response.status_code == 200
+
+	habit_id = create_response.json()["id"]
+
+	response = client.patch(f"/habits/{habit_id}")
+
+	assert response.status_code == 422
+
+
+
+
+
+def test_update_nonexistent_habit():
+    response = client.patch(
+        "/habits/9999",
+        json={"name": "Read Bible"}
+    )
+    assert response.status_code == 404
