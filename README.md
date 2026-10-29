@@ -4,6 +4,12 @@
 
 A full-stack Habit Tracker application built with **Vue 3** and **FastAPI**. Users can create, edit, delete, and complete habits while tracking daily streaks.
 
+## 🌐 Live Demo
+
+- 🖥️ **Frontend (Netlify):** [Try Habit Tracker](https://grindnglow.netlify.app/)
+- ⚙️ **Backend API (Render):** [View API](https://habit-tracker-x6nr.onrender.com/)
+- 📖 **API Documentation:** [Explore FastAPI Docs](https://habit-tracker-x6nr.onrender.com/docs)
+
 ## ✨ Features
 
 - ➕ Create new habits
