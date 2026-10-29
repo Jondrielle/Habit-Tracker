@@ -181,7 +181,6 @@ The status badge at the top of this README displays the workflow's current statu
 | PATCH | `/habits/{id}` | Update a habit |
 | DELETE | `/habit/{id}` | Delete a habit |
 
-> ⚠️ Confirm that the endpoint paths and HTTP methods match the route decorators in `backend/routes/habits.py`.
 
 ## 📚 What I Learned
 
